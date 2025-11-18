@@ -3,20 +3,38 @@ const Task = require('../Models/Task.js');
 // Create a new task
 const createTask = async (req,res) => {
     try {
-        const { title, description, userId} = req.body;
-        const newTask = await Task.create({ title,description,userId});
+        const { title, description } = req.body;
+        const userId = req.user.id;
+        console.log(userId);
+        
+
+        // Validate input
+        if(!title || !description){
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        // Create task
+        const newTask = await Task.create({ title,description: description || '',userId});
         res.status(201).json(newTask);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 }
 
+// Get all tasks for authenticated user
 const getTasks = async (req, res) => {
     try {
-        const tasks = await Task.findAll();
+        const userId = req.user.id; // From auth middleware
+        
+        // Only get tasks belonging to this user
+        const tasks = await Task.findAll({
+            where: { userId },
+            order: [['createdAt', 'DESC']]
+        });
+        
         res.status(200).json(tasks);
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error', details: error.message } );
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 }
 
