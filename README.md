@@ -83,7 +83,7 @@ JWT_SECRET=your_secret_key_min_32_characters
 ## 🧪 Testing with Swagger
 
 1. Start the server
-2. Open http://localhost:3000/api-docs
+2. Open http://localhost:5000/api-docs
 3. Register a new user via `/api/register`
 4. Login via `/api/login` and copy the token
 5. Click "Authorize" button and paste your token
@@ -121,10 +121,7 @@ JWT_SECRET=your_secret_key_min_32_characters
 ## 🚀 Deployment
 
 Ready to deploy on:
-- Railway
 - Render
-- Heroku
-- Any Node.js hosting platform
 
 ## 📬 Contact
 
