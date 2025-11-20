@@ -6,6 +6,16 @@ const Task = require('./Models/Task.js');
 const UserRoutes = require('./Routes/User.routes.js');
 const TaskRoutes = require('./Routes/Task.routes.js');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+
+// Validate environment variables
+const requiredEnvVars = ['DB_NAME', 'DB_USER', 'DB_HOST', 'JWT_SECRET'];
+const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+if (missingEnvVars.length > 0) {
+    console.error('❌ Missing environment variables:', missingEnvVars.join(', '));
+    process.exit(1);
+}
+
 
 // Swagger setup
 const swaggerUi = require('swagger-ui-express');
@@ -15,8 +25,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // middleware to parse JSON bodies
+// Enable CORS for all routes
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
 // Swagger Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {

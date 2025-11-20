@@ -4,7 +4,7 @@ const { registerUser, loginUser } = require('../Controller/User.Controller.js');
 
 /**
  * @swagger
- * /api/register:
+ * /api/users/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Authentication]
@@ -60,7 +60,7 @@ router.post('/register', registerUser);
 
 /**
  * @swagger
- * /api/login:
+ * /api/users/login:
  *   post:
  *     summary: Login user
  *     tags: [Authentication]
@@ -71,9 +71,13 @@ router.post('/register', registerUser);
  *           schema:
  *             type: object
  *             required:
+ *               - email
  *               - username
  *               - password
  *             properties:
+ *               email:
+ *                type: string
+ *                example: john@example.com
  *               username:
  *                 type: string
  *                 example: john_doe

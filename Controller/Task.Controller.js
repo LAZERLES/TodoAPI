@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const Task = require('../Models/Task.js');
 
 // Create a new task
@@ -6,16 +5,14 @@ const createTask = async (req,res) => {
     try {
         const { title, description } = req.body;
         const userId = req.user.id;
-        console.log(userId);
-        
 
         // Validate input
-        if(!title || !description){
-            return res.status(400).json({ error: 'Missing required fields' });
+        if(!title){
+            return res.status(400).json({ error: 'Title is required' });
         }
 
         // Create task
-        const newTask = await Task.create({ title,description: description || '',userId});
+        const newTask = await Task.create({ title, description: description || '', userId});
         res.status(201).json(newTask);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
@@ -77,14 +74,19 @@ const updateTask = async (req, res) => {
             return res.status(404).json({ error: 'Task not found' });
         }
 
-        // Update task details
-        task.title = title;
-        task.description = description;
-        task.completed = completed;
+        // Validate input - at least one field must be provided
+        if (title === undefined && description === undefined && completed === undefined) {
+            return res.status(400).json({ error: 'At least one field must be provided for update' });
+        }
+
+        // Update task details (only if provided)
+        if (title !== undefined) task.title = title;
+        if (description !== undefined) task.description = description;
+        if (completed !== undefined) task.completed = completed;
 
         await task.save();
 
-        res.status(204).send();
+        res.status(200).json(task);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });        
     }

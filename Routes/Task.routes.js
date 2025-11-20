@@ -6,29 +6,7 @@ const router = express.Router();
 // Route to create a new task
 /**
  * @swagger
- * /api/tasks:
- *   get:
- *     summary: Get all tasks for authenticated user
- *     tags: [Tasks]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: List of user's tasks
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Task'
- *       401:
- *         $ref: '#/components/responses/UnauthorizedError'
- */
-router.get('/', authenticateToken, getTasks);
-
-/**
- * @swagger
- * /api/tasks:
+ * /api/tasks/create:
  *   post:
  *     summary: Create a new task
  *     tags: [Tasks]
@@ -65,6 +43,28 @@ router.post('/create', authenticateToken, createTask);
 
 /**
  * @swagger
+ * /api/tasks:
+ *   get:
+ *     summary: Get all tasks for authenticated user
+ *     tags: [Tasks]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of user's tasks
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Task'
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ */
+router.get('/', authenticateToken, getTasks);
+
+/**
+ * @swagger
  * /api/tasks/{id}:
  *   get:
  *     summary: Get a task by ID
@@ -91,11 +91,11 @@ router.post('/create', authenticateToken, createTask);
  *       404:
  *         $ref: '#/components/responses/NotFoundError'
  */
-router.get('/tasks/:id', authenticateToken, getTaskById);
+router.get('/:id', authenticateToken, getTaskById);
 
 /**
  * @swagger
- * /api/tasks/{id}:
+ * /api/tasks/update/{id}:
  *   put:
  *     summary: Update a task
  *     tags: [Tasks]
@@ -137,11 +137,11 @@ router.get('/tasks/:id', authenticateToken, getTaskById);
  *       404:
  *         $ref: '#/components/responses/NotFoundError'
  */
-router.put('/tasks/:id', authenticateToken, updateTask);
+router.put('/update/:id', authenticateToken, updateTask);
 
 /**
  * @swagger
- * /api/tasks/{id}:
+ * /api/tasks/delete/{id}:
  *   delete:
  *     summary: Delete a task
  *     tags: [Tasks]
@@ -171,6 +171,6 @@ router.put('/tasks/:id', authenticateToken, updateTask);
  *       404:
  *         $ref: '#/components/responses/NotFoundError'
  */
-router.delete('/tasks/:id', authenticateToken, deleteTask);
+router.delete('/delete/:id', authenticateToken, deleteTask);
 
 module.exports = router;

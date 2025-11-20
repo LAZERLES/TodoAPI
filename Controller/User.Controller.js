@@ -12,6 +12,11 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ error: "please fill all the fields" });
     }
 
+    // Check password length
+    if(password.length < 6){
+      return res.status(400).json({ error: "Password must be at least 6 characters long" });
+    }
+
     // Check if user already exists
     const existingUser = await User.findOne({ where: { username } });
     if (existingUser) {
@@ -42,7 +47,7 @@ const loginUser = async (req, res) => {
     const {email, username, password } = req.body;
 
     // Validation
-    if (!email, !username || !password) {
+    if (!email || !username || !password) {
       return res
         .status(400)
         .json({ error: "Please fill all the required fields" });
