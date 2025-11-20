@@ -45,7 +45,7 @@ const getTaskById = async (req,res) =>{
         const {id} = req.params;
         const userId = req.user.id;
         
-        const task = await Task.findByPk({
+        const task = await Task.findOne({
             where:{
                 id, userId
             }

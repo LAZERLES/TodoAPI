@@ -5,11 +5,11 @@ const bcrypt = require("bcrypt");
 // Create a new user
 const registerUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, username, password } = req.body;
 
     // Validate input
-    if (!username || !password) {
-      return res.status(400).json({ error: "Missing username or password" });
+    if (!email || !username || !password) {
+      return res.status(400).json({ error: "please fill all the fields" });
     }
 
     // Check if user already exists
@@ -20,7 +20,8 @@ const registerUser = async (req, res) => {
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, password: hashedPassword });
+    // Create user
+    const user = await User.create({ email, username, password: hashedPassword });
 
     res.status(201).json({
       message: "User created successfully",
@@ -38,13 +39,13 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const {email, username, password } = req.body;
 
     // Validation
-    if (!username || !password) {
+    if (!email, !username || !password) {
       return res
         .status(400)
-        .json({ error: "Username and password are required" });
+        .json({ error: "Please fill all the required fields" });
     }
 
     // Check if user exists
@@ -73,6 +74,7 @@ const loginUser = async (req, res) => {
 
     res.status(200).json({
       message: "Login successful",
+      token,
       user: {
         id: userData.id,
         username: userData.username,
