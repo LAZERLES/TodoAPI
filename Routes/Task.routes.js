@@ -4,10 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 // Route to create a new task
-router.post('/create',authenticateToken, createTask);
-router.get('/',authenticateToken, getTasks);
-router.get('/tasks/:id', getTaskById);
-router.put('/tasks/:id', updateTask);
-router.delete('/tasks/:id', deleteTask);
+router.post('/create', authenticateToken, createTask);
+router.get('/', authenticateToken, getTasks);
+router.get('/task/:id', authenticateToken ,getTaskById);
+router.put('/update/:id', authenticateToken, updateTask);
+router.delete('/delete/:id', authenticateToken, deleteTask);
 
 module.exports = router;

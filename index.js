@@ -1,12 +1,11 @@
 const express = require('express');
 const sequelize = require('./Data/DB');
-const { configDotenv } = require('dotenv');
 const User = require('./Models/User.js');
 const Task = require('./Models/Task.js');
 const UserRoutes = require('./Routes/User.routes.js');
 const TaskRoutes = require('./Routes/Task.routes.js');
 const cookieParser = require('cookie-parser');
-configDotenv();
+require('dotenv').config();
 
 
 const app = express();
@@ -25,7 +24,7 @@ app.use('/api/tasks', TaskRoutes);
 
 
 // Start the server
-app.listen(3000, async () => {
+app.listen(process.env.PORT, async () => {
     try {
         await sequelize.authenticate().then(() => {
             console.log('Connection has been established successfully.');

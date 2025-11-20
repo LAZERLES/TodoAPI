@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Task = require('../Models/Task.js');
 
 // Create a new task
@@ -29,22 +30,31 @@ const getTasks = async (req, res) => {
         // Only get tasks belonging to this user
         const tasks = await Task.findAll({
             where: { userId },
-            order: [['createdAt', 'DESC']]
+            order: [['id', 'DESC']]
         });
         
-        res.status(200).json(tasks);
+        res.status(200).json({ task : tasks });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 }
 
+// Get single task by ID with ownership check
 const getTaskById = async (req,res) =>{
     try {
         const {id} = req.params;
-        const task = await Task.findByPk(id);   
+        const userId = req.user.id;
+        
+        const task = await Task.findByPk({
+            where:{
+                id, userId
+            }
+        });   
+
         if(!task){
             return res.status(404).json({ error: 'Task not found' } );
-        } 
+        }
+
         res.status(200).json(task);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error', details: error.message } );
@@ -55,15 +65,25 @@ const updateTask = async (req, res) => {
     try {
         // Get the task ID from the URL
         const { id } = req.params;
+        const userId = req.user.id;
+
+        // Find the task to update
         const { title, description, completed } = req.body;
-        const task = await Task.findByPk(id);
+        const task = await Task.findOne({
+            where: { id, userId }
+        });
+
         if (!task) {
             return res.status(404).json({ error: 'Task not found' });
         }
+
+        // Update task details
         task.title = title;
         task.description = description;
         task.completed = completed;
+
         await task.save();
+
         res.status(204).send();
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });        
@@ -72,8 +92,14 @@ const updateTask = async (req, res) => {
 
 const deleteTask = async (req,res) => {
     try {
+        
         const {id} = req.params;
-        const task = await Task.findByPk(id);
+        const userId = req.user.id;
+        
+        const task = await Task.findOne({
+            where: { id, userId }
+        })
+
         if(!task){
             return res.status(404).json({ error: 'Task not found' } );
         }
