@@ -34,7 +34,7 @@ http://localhost:3000/api-docs.json
 ## 📦 Installation
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/task-api
+git clone https://github.com/LAZERLES/TodoAPI.git
 
 # Install dependencies
 npm install
