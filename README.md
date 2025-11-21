@@ -95,10 +95,10 @@ JWT_SECRET=your_secret_key_min_32_characters
 ![Swagger UI](./Screenshots/TaskAPI.png)
 
 ### Authentication Endpoints
-![Auth Endpoints](./screenshots/AuthenEndpoint.png)
+![Auth Endpoints](./Screenshots/AuthenEndpoint.png)
 
 ### Testing with Swagger
-![Testing](./screenshots/ApiTesting.png)
+![Testing](./Screenshots/ApiTesting.png)
 
 ## 🔐 Security Features
 
