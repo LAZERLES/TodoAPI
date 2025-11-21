@@ -92,13 +92,13 @@ JWT_SECRET=your_secret_key_min_32_characters
 ## 🖼️ Screenshots
 
 ### Swagger Documentation
-![Swagger UI](./screenshots/swagger-ui.png)
+![Swagger UI](./Screenshots/TaskAPI.png)
 
 ### Authentication Endpoints
-![Auth Endpoints](./screenshots/auth-endpoints.png)
+![Auth Endpoints](./screenshots/AuthenEndpoint.png)
 
 ### Testing with Swagger
-![Testing](./screenshots/swagger-testing.png)
+![Testing](./screenshots/ApiTesting.png)
 
 ## 🔐 Security Features
 
