@@ -60,9 +60,10 @@ router.post('/register', registerUser);
 
 /**
  * @swagger
- * /api/users/login:
+ * /api/login:
  *   post:
  *     summary: Login user
+ *     description: Login with either username or email and password
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -71,19 +72,21 @@ router.post('/register', registerUser);
  *           schema:
  *             type: object
  *             required:
- *               - email
- *               - username
  *               - password
  *             properties:
- *               email:
- *                type: string
- *                example: john@example.com
  *               username:
  *                 type: string
+ *                 description: Username (use either username or email)
  *                 example: john_doe
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: Email address (use either username or email)
+ *                 example: john@example.com
  *               password:
  *                 type: string
  *                 format: password
+ *                 description: User password
  *                 example: password123
  *     responses:
  *       200:
@@ -111,8 +114,26 @@ router.post('/register', registerUser);
  *                     email:
  *                       type: string
  *                       example: john@example.com
+ *       400:
+ *         description: Validation error (missing username/email or password)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Username or email and password are required
  *       401:
  *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Invalid credentials
  *       500:
  *         description: Internal server error
  */
