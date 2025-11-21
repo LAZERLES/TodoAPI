@@ -53,8 +53,11 @@ const loginUser = async (req, res) => {
         .json({ error: "Please fill all the required fields" });
     }
 
+    // user can login with either email or username
+    const identifier = email ? { email } : { username };
+
     // Check if user exists
-    const userData = await User.findOne({ where: { username } });
+    const userData = await User.findOne({ where: identifier });
     if (!userData) {
       return res.status(404).json({ error: "User not found" });
     }
