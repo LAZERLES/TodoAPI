@@ -15,12 +15,12 @@ A RESTful API for managing tasks with user authentication built with Node.js, Ex
 
 **Interactive documentation available at:**
 ```
-http://localhost:3000/api-docs
+http://localhost:5000/api-docs
 ```
 
 **Swagger JSON:**
 ```
-http://localhost:3000/api-docs.json
+http://localhost:5000/api-docs.json
 ```
 
 ## 🛠️ Tech Stack
@@ -68,17 +68,17 @@ JWT_SECRET=your_secret_key_min_32_characters
 ### Authentication
 | Method | Endpoint | Description | Auth Required |
 |--------|----------|-------------|---------------|
-| POST | `/api/register` | Register new user | ❌ |
-| POST | `/api/login` | Login user | ❌ |
+| POST | `/api/users/register` | Register new user | ❌ |
+| POST | `/api/users/login` | Login user | ❌ |
 
 ### Tasks
 | Method | Endpoint | Description | Auth Required |
 |--------|----------|-------------|---------------|
 | GET | `/api/tasks` | Get all user tasks | ✅ |
-| POST | `/api/tasks` | Create new task | ✅ |
+| POST | `/api/tasks/create` | Create new task | ✅ |
 | GET | `/api/tasks/:id` | Get task by ID | ✅ |
-| PUT | `/api/tasks/:id` | Update task | ✅ |
-| DELETE | `/api/tasks/:id` | Delete task | ✅ |
+| PUT | `/api/tasks/update/:id` | Update task | ✅ |
+| DELETE | `/api/tasks/delete/:id` | Delete task | ✅ |
 
 ## 🧪 Testing with Swagger
 
@@ -121,7 +121,7 @@ JWT_SECRET=your_secret_key_min_32_characters
 ## 🚀 Deployment
 
 Ready to deploy on:
-- Render
+- Render on https://todoapi-a4m6.onrender.com/api-docs/api-docs#/
 
 ## 📬 Contact
 
