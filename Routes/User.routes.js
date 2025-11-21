@@ -60,7 +60,7 @@ router.post('/register', registerUser);
 
 /**
  * @swagger
- * /api/login:
+ * /api/users/login:
  *   post:
  *     summary: Login user
  *     description: Login with either username or email and password
