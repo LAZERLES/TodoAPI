@@ -52,7 +52,7 @@ npm run dev
 
 ## 🔧 Environment Variables
 ```env
-PORT=3000
+PORT=5000
 NODE_ENV=development
 
 DB_HOST=localhost
