@@ -44,13 +44,13 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const {email, username, password } = req.body;
+    const { email, username, password } = req.body;
 
-    // Validation
-    if (!email || !username || !password) {
+    // Validation - user must provide password and either email or username
+    if (!password || (!email && !username)) {
       return res
         .status(400)
-        .json({ error: "Please fill all the required fields" });
+        .json({ error: "Please provide password and either email or username" });
     }
 
     // user can login with either email or username
